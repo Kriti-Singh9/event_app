@@ -8,8 +8,8 @@ import '../screens/sign_in.dart';
 
 
 
-Color mainColor = Color(0xFFF59779);
-Color secColor = Color(0xFFFF774C);
+Color mainColor = Color(0xFFFFFFFF);
+Color secColor = Color(0xFF112454);
 Color bgColor = Color(0xFF0C0C0D);
 Color bgLight = Color(0xFF383838);
 
@@ -230,7 +230,8 @@ Widget fieldTitle(String title) {
       title,
       style: TextStyle(
         fontSize: screenw / 24,
-        color: Colors.white
+        color: Colors.black,
+        fontFamily: "mons"
 
       ),
     ),

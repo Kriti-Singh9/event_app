@@ -45,7 +45,7 @@ class _SignupState extends State<Signup> {
     screenh = MediaQuery.of(context).size.height;
     screenw = MediaQuery.of(context).size.width;
     return MaterialApp(home:Scaffold(
-        backgroundColor: bgColor,
+        backgroundColor: mainColor,
         body: Stack(
           children: [
             Form(
@@ -62,7 +62,7 @@ class _SignupState extends State<Signup> {
                             ),
                             Container(
                                 alignment: Alignment.topLeft,
-                                child: mainTextLeft("Sign up", Colors.white, 30,
+                                child: mainTextLeft("Sign up", Colors.black, 30,
                                     FontWeight.w700, 1)),
                             SizedBox(
                               height: 30,
@@ -72,7 +72,7 @@ class _SignupState extends State<Signup> {
                               child: Text(
                                 "Username",
                                 style: TextStyle(
-                                    fontSize: screenw / 24, color: Colors.white),
+                                    fontSize: screenw / 24, color: Colors.black),
                               ),
                             ),
                             TextFormField(
@@ -95,7 +95,7 @@ class _SignupState extends State<Signup> {
                                   Iconsax.user,
                                   color: Colors.black,
                                 ),
-                                fillColor: mainColor,
+                                fillColor: bgLight.withOpacity(0.2),
                                 filled: true,
                                 floatingLabelBehavior: FloatingLabelBehavior.never,
                                 border: OutlineInputBorder(
@@ -123,7 +123,7 @@ class _SignupState extends State<Signup> {
                               child: Text(
                                 "Email",
                                 style: TextStyle(
-                                    fontSize: screenw / 24, color: Colors.white),
+                                    fontSize: screenw / 24, color: Colors.black),
                               ),
                             ),
                             TextFormField(
@@ -144,7 +144,7 @@ class _SignupState extends State<Signup> {
                                   Iconsax.message_text,
                                   color: Colors.black,
                                 ),
-                                fillColor: mainColor,
+                                fillColor: bgLight.withOpacity(0.2),
                                 filled: true,
                                 hintStyle:
                                     TextStyle(fontFamily: 'mons', color: secColor),
@@ -180,7 +180,8 @@ class _SignupState extends State<Signup> {
                               child: Text(
                                 "Password",
                                 style: TextStyle(
-                                    fontSize: screenw / 24, color: Colors.white),
+                                    fontSize: screenw / 24, color: Colors.black,
+                               ),
                               ),
                             ),
                             TextFormField(
@@ -217,7 +218,7 @@ class _SignupState extends State<Signup> {
                                   Iconsax.key,
                                   color: Colors.black,
                                 ),
-                                fillColor: mainColor,
+                                fillColor: bgLight.withOpacity(0.2),
                                 filled: true,
                                 hintStyle:
                                     TextStyle(fontFamily: 'mons', color: secColor),
@@ -309,9 +310,9 @@ class _SignupState extends State<Signup> {
                             ),
                             Row(
                               children: [
-                                SizedBox(width: screenw / 6),
-                                mainTextLeft("Already have a account ?",
-                                    Colors.white, 15, FontWeight.normal, 1),
+                                Spacer(),
+                                mainText("Already have a account ?",
+                                    Colors.white, 13, FontWeight.normal, 1),
                                 TextButton(
                                     onPressed: () {
                                       Navigator.push(
@@ -319,11 +320,9 @@ class _SignupState extends State<Signup> {
                                           MaterialPageRoute(
                                               builder: (context) => Signin()));
                                     },
-                                    child: Text(
-                                      "Sign in",
-                                      style:
-                                          TextStyle(color: mainColor, fontSize: 15),
-                                    ))
+                                    child: mainText("Sign In",
+                                        mainColor, 13, FontWeight.normal, 1),),
+                                Spacer(),
                               ],
                             ),
                           ]))),

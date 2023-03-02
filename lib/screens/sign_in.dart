@@ -26,7 +26,6 @@ final formkey = GlobalKey<FormState>();
 FirebaseAuth _auth = FirebaseAuth.instance;
 final _messangerKey = GlobalKey<ScaffoldMessengerState>();
 
-
 class _SigninState extends State<Signin> {
   @override
   Widget build(BuildContext context) {
@@ -38,171 +37,190 @@ class _SigninState extends State<Signin> {
       actions: [],
     );
     return MaterialApp(
+      debugShowCheckedModeBanner: false,
       scaffoldMessengerKey: _messangerKey,
       home: Scaffold(
           resizeToAvoidBottomInset: false,
-          backgroundColor: bgColor,
+          backgroundColor: secColor,
           body: Stack(
             children: [
               SingleChildScrollView(
-                child: Padding(
-                  padding: const EdgeInsets.all(20.0),
-                  child: Form(
-                    key: formkey,
-                    child: Column(
-                      crossAxisAlignment: CrossAxisAlignment.start,
-                      mainAxisAlignment: MainAxisAlignment.start,
-                      children: <Widget>[
-                        SizedBox(
-                          height: screenh / 7,
-                        ),
-                        Container(
-                            alignment: Alignment.topLeft,
-                            child: mainTextLeft("Sign in", Colors.white, 30,
-                                FontWeight.w700, 1)),
-                        SizedBox(height: 70),
-                        fieldTitle("Email"),
-                        TextFormField(
-                          controller: idController,
-                          maxLength: 36,
-                          keyboardType: TextInputType.emailAddress,
-                          cursorColor: Colors.black,
-                          style: TextStyle(
-                            fontFamily: 'mons',
-                            fontSize: 15.0,
-                            color: Colors.black,
-                          ),
-                          decoration: InputDecoration(
-                            labelText: "Enter Your Email",
-                            counterText: "",
-                            prefixIcon: Icon(
-                              Iconsax.user,
-                              color: Colors.black,
-                            ),
-                            fillColor: mainColor,
-                            filled: true,
-                            hintStyle:
-                                TextStyle(fontFamily: 'mons', color: secColor),
-                            labelStyle:
-                                TextStyle(color: Colors.black.withOpacity(0.5)),
-                            floatingLabelBehavior: FloatingLabelBehavior.never,
-                            border: OutlineInputBorder(
-                                borderRadius: BorderRadius.circular(10.0),
-                                borderSide: const BorderSide(
-                                    width: 0, style: BorderStyle.none)),
-                          ),
-                          onChanged: (text) {
-                            email = text;
-                          },
-                          validator: (value) {
-                            bool emailValid = RegExp(
-                                    r"^[a-zA-Z0-9.a-zA-Z0-9.!#$%&'*+-/=?^_`{|}~]+@[a-zA-Z0-9]+\.[a-zA-Z]+")
-                                .hasMatch(value!);
-                            if (!emailValid) {
-                              return ("Please enter a valid email");
-                            } else {
-                              return null;
-                            }
-                          },
-                        ),
-                        SizedBox(height: 30),
-                        fieldTitle("Password"),
-                        TextFormField(
-                          maxLength: 18,
-                          cursorColor: Colors.black,
-                          controller: passController,
-                          obscureText: !passwordVisible,
-                          enableSuggestions: false,
-                          autocorrect: false,
-                          style: TextStyle(
-                            fontFamily: 'mons',
-                            fontSize: 15.0,
-                            color: Colors.black,
-                          ),
-                          decoration: InputDecoration(
-                            suffixIcon: IconButton(
-                              icon: Icon(
-                                passwordVisible
-                                    ? Iconsax.eye
-                                    : Iconsax.eye_slash,
-                                color: Colors.black,
-                              ),
-                              onPressed: () {
-                                setState(() {
-                                  passwordVisible = !passwordVisible;
-                                });
-                              },
-                            ),
-                            labelText: "Enter your Password",
-                            counterText: "",
-                            prefixIcon: Icon(
-                              Iconsax.key,
-                              color: Colors.black,
-                            ),
-                            fillColor: mainColor,
-                            filled: true,
-                            hintStyle:
-                                TextStyle(fontFamily: 'mons', color: secColor),
-                            labelStyle:
-                                TextStyle(color: Colors.black.withOpacity(0.5)),
-                            floatingLabelBehavior: FloatingLabelBehavior.never,
-                            border: OutlineInputBorder(
-                                borderRadius: BorderRadius.circular(10.0),
-                                borderSide: const BorderSide(
-                                    width: 0, style: BorderStyle.none)),
-                          ),
-                          onChanged: (text) {
-                            password = text;
-                          },
-                          validator: (value){
-                            if(value!.isEmpty){
-                              return("Please enter a password");
-                            }
-                            else if(value.length < 6){
-                              return("The Password length must be more than 6 characters");
-                            }
-                          },
-                        ),
-                        SizedBox(
-                          height: 50,
-                        ),
-                        SizedBox(
-                          width: screenw / 1,
-                          height: 50,
-                          child: ElevatedButton(
-                            onPressed: () {
-                              login(context);
-                            },
-                            child: mainText("Login", Colors.white, 18,
-                                FontWeight.normal, 1),
-                            style: ButtonStyle(
-                                foregroundColor:
-                                    MaterialStateProperty.all<Color>(secColor),
-                                backgroundColor:
-                                    MaterialStateProperty.all<Color>(secColor),
-                                shape: MaterialStateProperty.all<
-                                        RoundedRectangleBorder>(
-                                    RoundedRectangleBorder(
-                                        borderRadius:
-                                            BorderRadius.circular(borderRadius),
-                                        side: BorderSide(color: secColor)))),
-                          ),
-                        ),
-                        SizedBox(
-                          height: 8,
-                        ),
-                        Divider(
+                child: Form(
+                  key: formkey,
+                  child: Column(
+                    crossAxisAlignment: CrossAxisAlignment.start,
+                    mainAxisAlignment: MainAxisAlignment.start,
+                    children: <Widget>[
+                      SizedBox(height: 50),
+                      Container(
+                        margin: EdgeInsets.symmetric(horizontal: 20.0,vertical: 20.0),
+                        child: Card(
+                          shape: RoundedRectangleBorder(borderRadius: BorderRadius.circular(15.0),),
                           color: Colors.white,
-                          thickness: 1,
-                          height: 15,
-                          indent: 50,
-                          endIndent: 50,
+                          child: Padding(
+                            padding: EdgeInsets.symmetric(horizontal: 20.0,vertical: 20.0),
+                            child: Column(
+                              children: [
+                                Container(
+                                    alignment: Alignment.topLeft,
+                                    child: mainTextLeft("Sign in", Colors.black, 30,
+                                        FontWeight.w700, 1)),
+                                SizedBox(height: 60),
+                                Row(
+                                  children: [
+                                    fieldTitle("Email"),
+                                    Spacer(),
+                                  ],
+                                ),
+                                TextFormField(
+                                  controller: idController,
+                                  maxLength: 36,
+                                  keyboardType: TextInputType.emailAddress,
+                                  cursorColor: Colors.black,
+                                  style: TextStyle(
+                                    fontFamily: 'mons',
+                                    fontSize: 15.0,
+                                    color: Colors.black,
+                                  ),
+                                  decoration: InputDecoration(
+                                    labelText: "Enter Your Email",
+                                    counterText: "",
+                                    prefixIcon: Icon(
+                                      Iconsax.user,
+                                      color: Colors.black,
+                                    ),
+                                    fillColor: bgLight.withOpacity(0.2),
+                                    filled: true,
+                                    hintStyle: TextStyle(
+                                        fontFamily: 'mons', color: secColor),
+                                    labelStyle: TextStyle(
+                                        color: Colors.black.withOpacity(0.5)),
+                                    floatingLabelBehavior:
+                                        FloatingLabelBehavior.never,
+                                    border: OutlineInputBorder(
+                                        borderRadius: BorderRadius.circular(10.0),
+                                        borderSide: const BorderSide(
+                                            width: 0, style: BorderStyle.none)),
+                                  ),
+                                  onChanged: (text) {
+                                    email = text;
+                                  },
+                                  validator: (value) {
+                                    bool emailValid = RegExp(
+                                            r"^[a-zA-Z0-9.a-zA-Z0-9.!#$%&'*+-/=?^_`{|}~]+@[a-zA-Z0-9]+\.[a-zA-Z]+")
+                                        .hasMatch(value!);
+                                    if (!emailValid) {
+                                      return ("Please enter a valid email");
+                                    } else {
+                                      return null;
+                                    }
+                                  },
+                                ),
+                                SizedBox(height: 20),
+                                Row(
+                                  children: [
+                                    fieldTitle("Password"),
+                                    Spacer(),
+                                  ],
+                                ),
+                                TextFormField(
+                                  maxLength: 18,
+                                  cursorColor: Colors.black,
+                                  controller: passController,
+                                  obscureText: !passwordVisible,
+                                  enableSuggestions: false,
+                                  autocorrect: false,
+                                  style: TextStyle(
+                                    fontFamily: 'mons',
+                                    fontSize: 15.0,
+                                    color: Colors.black,
+                                  ),
+                                  decoration: InputDecoration(
+                                    suffixIcon: IconButton(
+                                      icon: Icon(
+                                        passwordVisible
+                                            ? Iconsax.eye
+                                            : Iconsax.eye_slash,
+                                        color: Colors.black,
+                                      ),
+                                      onPressed: () {
+                                        setState(() {
+                                          passwordVisible = !passwordVisible;
+                                        });
+                                      },
+                                    ),
+                                    labelText: "Password",
+                                    counterText: "",
+                                    prefixIcon: Icon(
+                                      Iconsax.key,
+                                      color: Colors.black,
+                                    ),
+                                    fillColor: bgLight.withOpacity(0.2),
+                                    filled: true,
+                                    hintStyle: TextStyle(
+                                        fontFamily: 'mons', color: secColor),
+                                    labelStyle: TextStyle(
+                                        color: Colors.black.withOpacity(0.5)),
+                                    floatingLabelBehavior:
+                                        FloatingLabelBehavior.never,
+                                    border: OutlineInputBorder(
+                                        borderRadius: BorderRadius.circular(10.0),
+                                        borderSide: const BorderSide(
+                                            width: 0, style: BorderStyle.none)),
+                                  ),
+                                  onChanged: (text) {
+                                    password = text;
+                                  },
+                                  validator: (value) {
+                                    if (value!.isEmpty) {
+                                      return ("Please enter a password");
+                                    } else if (value.length < 6) {
+                                      return ("The Password length must be more than 6 characters");
+                                    }
+                                  },
+                                ),
+                                SizedBox(
+                                  height: 50,
+                                ),
+                                SizedBox(
+                                  width: screenw / 1.7,
+                                  height: 50,
+                                  child: ElevatedButton(
+                                    onPressed: () {
+                                      login(context);
+                                    },
+                                    child: mainText("Login", Colors.white, 18,
+                                        FontWeight.normal, 1),
+                                    style: ButtonStyle(
+                                        foregroundColor:
+                                            MaterialStateProperty.all<Color>(
+                                                secColor),
+                                        backgroundColor:
+                                            MaterialStateProperty.all<Color>(
+                                                secColor),
+                                        shape: MaterialStateProperty.all<
+                                                RoundedRectangleBorder>(
+                                            RoundedRectangleBorder(
+                                                borderRadius: BorderRadius.circular(
+                                                    borderRadius),
+                                                side:
+                                                    BorderSide(color: secColor)))),
+                                  ),
+                                ),
+                                SizedBox(
+                                  height: 8,
+                                ),
+                              ],
+                            ),
+                          ),
                         ),
-                        SizedBox(
-                          height: 8,
-                        ),
-                        SizedBox(
-                          width: screenw / 1,
+                      ),
+                      SizedBox(
+                        height: 8,
+                      ),
+                      Center(
+                        child: SizedBox(
+                          width: screenw / 1.7,
                           height: 50,
                           child: ElevatedButton.icon(
                             onPressed: () {},
@@ -211,41 +229,41 @@ class _SigninState extends State<Signin> {
                               color: Colors.black,
                             ),
                             label: mainText("Continue with Google",
-                                Colors.white, 15, FontWeight.normal, 1),
+                                Colors.black, 15, FontWeight.normal, 1),
                             style: ButtonStyle(
                                 foregroundColor:
-                                    MaterialStateProperty.all<Color>(secColor),
+                                    MaterialStateProperty.all<Color>(mainColor),
                                 backgroundColor:
-                                    MaterialStateProperty.all<Color>(secColor),
+                                    MaterialStateProperty.all<Color>(mainColor),
                                 shape: MaterialStateProperty.all<
                                         RoundedRectangleBorder>(
                                     RoundedRectangleBorder(
                                         borderRadius:
                                             BorderRadius.circular(borderRadius),
-                                        side: BorderSide(color: secColor)))),
+                                        side: BorderSide(color: mainColor)))),
                           ),
                         ),
-                        Row(
-                          children: [
-                            SizedBox(width: screenw / 6),
-                            mainTextLeft("Don't have a account ?", Colors.white,
-                                15, FontWeight.normal, 1),
-                            TextButton(
-                                onPressed: () {
-                                  Navigator.push(
-                                      context,
-                                      MaterialPageRoute(
-                                          builder: (context) => Signup()));
-                                },
-                                child: Text(
-                                  "Sign up",
-                                  style:
-                                      TextStyle(color: mainColor, fontSize: 15),
-                                ))
-                          ],
-                        ),
-                      ],
-                    ),
+                      ),
+                      Row(
+                        children: [
+                          SizedBox(width: screenw / 6),
+                          mainTextLeft("Don't have a account ?", Colors.white,
+                              15, FontWeight.normal, 1),
+                          TextButton(
+                              onPressed: () {
+                                Navigator.push(
+                                    context,
+                                    MaterialPageRoute(
+                                        builder: (context) => Signup()));
+                              },
+                              child: Text(
+                                "Sign up",
+                                style:
+                                    TextStyle(color: mainColor, fontSize: 15),
+                              ))
+                        ],
+                      ),
+                    ],
                   ),
                 ),
               ),
@@ -264,17 +282,16 @@ class _SigninState extends State<Signin> {
         await _auth
             .signInWithEmailAndPassword(email: email, password: password)
             .then((uid) => {
-          checker(context),
-          print('ho gya'),
-          setState(() {
-            // isHide = false;
-          }),
-        });
+                  checker(context),
+                  print('ho gya'),
+                  setState(() {
+                    // isHide = false;
+                  }),
+                });
       } on FirebaseAuthException catch (e) {
         if (e.code == "user-not-found") {
           setState(() {
             isHide = false;
-
           });
           Snacker("User not Found", _messangerKey);
         } else if (e.code == "wrong_password") {
@@ -283,18 +300,14 @@ class _SigninState extends State<Signin> {
           });
           Snacker("Wrong Password", _messangerKey);
           print('hello');
-
         } else {
           setState(() {
             isHide = false;
           });
           Snacker("Something went wrong", _messangerKey);
           print('hello');
-
         }
       }
     }
   }
-
-
 }
